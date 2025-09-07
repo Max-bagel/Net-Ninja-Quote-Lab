@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'quote.dart';
 import 'random.dart';
 
@@ -39,7 +40,24 @@ class _QuoteCardState extends State<QuoteCard> {
               style: TextStyle(fontSize: 14.0, color: Colors.grey[800]),
             ),
             SizedBox(height: 6.0),
-            Wrap(spacing: 8, children: [Chip(label: Text(category))]),
+            //NEW: Date
+            Wrap(
+                spacing: 8,
+                children: [
+                  Chip(label: Text(category)),
+                  Text(DateFormat.yMMMd().format(widget.quote.createdAt)),
+                ]),
+            //NEW: Likes Button
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.thumb_up),
+                  onPressed: () => setState(() => widget.quote.likes++),
+                ),
+                Text('${widget.quote.likes}'),
+              ],
+            )
           ],
         ),
       ),
